@@ -4,8 +4,7 @@ for i in range(0, 100):
     tens = (i//10)%10
     if ones <= tens:
         continue
-    if i == 89:
-        print(f"{i:02}", end='')
+    if i != 89:
+        print("{:02}, ".format(i), end='')
     else:
-        print(f"{i:02}", end=', ')
-print()
+        print("{:02}".format(i))
