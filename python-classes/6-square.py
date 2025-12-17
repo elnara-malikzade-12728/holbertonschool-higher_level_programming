@@ -31,11 +31,13 @@ class Square:
     def position(self, value):
         """Set position with validation."""
 
-        error_message = "position must be a tuple of 2 positive integers"
-        if (not isinstance(value, tuple) or len(value) != 2 or
-                not isinstance(value[0], int) or not isinstance(value[1], int) or
+        error_msg = "position must be a tuple of 2 positive integers"
+        if (not isinstance(value, tuple) or
+            len(value) != 2 or
+                not isinstance(value[0], int) or
+            not isinstance(value[1], int) or
                 value[0] < 0 or value[1] < 0):
-            raise TypeError(error_message)
+            raise TypeError(error_msg)
         self.__position = value
 
     def __init__(self, size=0, position=(0, 0)):
