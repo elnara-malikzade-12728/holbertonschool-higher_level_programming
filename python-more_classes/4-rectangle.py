@@ -68,6 +68,6 @@ class Rectangle:
         return "\n".join(lines)
 
     def __repr__(self):
-        """Prints developer representation of the rectangle."""
+        """Returns string representation of the rectangle."""
 
         return f"Rectangle{self.__width, self.__height}"
