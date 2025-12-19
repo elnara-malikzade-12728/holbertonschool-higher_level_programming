@@ -71,7 +71,7 @@ class Rectangle:
         print_symbol = str(self.print_symbol)
         for i in range(self.__height):
             lines.append(print_symbol * self.__width)
-        return"\n".join(lines)
+        return "\n".join(lines)
 
     def __repr__(self):
         """Returns string representation of the rectangle."""
