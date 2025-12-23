@@ -6,7 +6,7 @@ class BaseGeometry:
     """Represents a BaseGeometry class."""
 
     def area(self):
-        """Raises an Exception with a message."""
+        """Raises an Exception."""
         raise Exception("area() is not implemented")
 
     def integer_validator(self, name, value):
