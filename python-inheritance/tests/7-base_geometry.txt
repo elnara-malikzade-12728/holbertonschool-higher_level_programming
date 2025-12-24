@@ -22,3 +22,38 @@
 ... except ValueError as e:
 ...     print("[{}] {}".format(e.__class__.__name__, e))
 [ValueError] distance must be greater than 0
+>>> try:
+...     bg.integer_validator()
+... except TypeError as e:
+...     print("[{}] {}".format(e.__class__.__name__, e))
+[TypeError] name must be an integer
+>>> try:
+    ...     bg.integer_validator("age")
+    ... except ValueError as e:
+    ...     print("[{}] {}".format(e.__class__.__name__, e))
+    [ValueError] age must be greater than 0
+>>> try:
+...     bg.integer_validator("age", (4,))
+... except TypeError as e:
+...     print("[{}] {}".format(e.__class__.__name__, e))
+[TypeError] name must be an integer
+>>> try:
+...     bg.integer_validator("age", [3])
+... except TypeError as e:
+...     print("[{}] {}".format(e.__class__.__name__, e))
+[TypeError] name must be an integer
+>>> try:
+...     bg.integer_validator("age", True)
+... except TypeError as e:
+...     print("[{}] {}".format(e.__class__.__name__, e))
+[TypeError] name must be an integer
+>>> try:
+...     bg.integer_validator("age",{3, 4})
+... except TypeError as e:
+...     print("[{}] {}".format(e.__class__.__name__, e))
+[TypeError] name must be an integer
+>>> try:
+...     bg.integer_validator("age",None)
+... except TypeError as e:
+...     print("[{}] {}".format(e.__class__.__name__, e))
+[TypeError] name must be an integer
