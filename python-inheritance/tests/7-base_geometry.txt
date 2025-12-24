@@ -28,9 +28,9 @@
 ...     print("[{}] {}".format(e.__class__.__name__, e))
 [TypeError] name must be an integer
 >>> try:
-    ...     bg.integer_validator("age")
-    ... except ValueError as e:
-    ...     print("[{}] {}".format(e.__class__.__name__, e))
+...     bg.integer_validator("age")
+... except ValueError as e:
+...     print("[{}] {}".format(e.__class__.__name__, e))
 [ValueError] age must be greater than 0
 >>> try:
 ...     bg.integer_validator("age", (4,))
