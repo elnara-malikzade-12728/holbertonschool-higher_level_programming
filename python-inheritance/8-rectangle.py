@@ -1,11 +1,8 @@
 #!/usr/bin/python3
 """Defines a Rectangle class based on BaseGeometry class."""
-import importlib
-"""Dynamically import the module using its string name."""
 
-bg_module = importlib.import_module("7-base_geometry")
 
-class Rectangle(bg_module.BaseGeometry):
+class Rectangle(BaseGeometry):
     """Represents Rectangle class that inherits from BaseGeometry."""
 
     def __init__(self, width, height):
