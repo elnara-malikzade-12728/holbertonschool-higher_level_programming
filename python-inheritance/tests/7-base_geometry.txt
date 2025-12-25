@@ -23,6 +23,11 @@
 ...     print("[{}] {}".format(e.__class__.__name__, e))
 [ValueError] distance must be greater than 0
 >>> try:
+...     bg.integer_validator("age", 13.5)
+... except Exception as e:
+...     print(1)
+1
+>>> try:
 ...     bg.integer_validator()
 ... except Exception as e:
 ...     print("[{}] {}".format(e.__class__.__name__, e))
