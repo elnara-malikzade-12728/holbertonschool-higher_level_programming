@@ -8,5 +8,6 @@ class Square(Rectangle):
 
     def __init__(self, size):
         """Initiates a constructor with private attribute size."""
+        self.integer_validator("size", size)
         super().__init__(size, size)
-        Rectangle.integer_validator(self,name="size", value=size)
+        self.__size = size
