@@ -16,7 +16,8 @@ class Rectangle(BaseGeometry):
 
     def __str__(self):
         """Returns customized rectangle description."""
-        r = "[{}] {}/{}".format(__class__.__name__, self.__width, self.__height)
+        name = __class__.__name__
+        r = "[{}] {}/{}".format(name, self.__width, self.__height)
         return r
 
     def area(self):
