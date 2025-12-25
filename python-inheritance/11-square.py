@@ -15,5 +15,5 @@ class Square(Rectangle):
     def __str__(self):
         """Returns customized square class description."""
         name = __class__.__name__
-        r = "[{}] {}/{}".format(name,self.__size, self.__size)
+        r = "[{}] {}/{}".format(name, self.__size, self.__size)
         return r
