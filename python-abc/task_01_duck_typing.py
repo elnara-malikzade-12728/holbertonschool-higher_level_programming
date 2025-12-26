@@ -25,11 +25,11 @@ class Circle(Shape):
 
     def area(self):
         """Implements the area method."""
-        return pi * self.radius ** 2
+        return pi * abs(self.radius) ** 2
 
     def perimeter(self):
         """Implements the perimeter method."""
-        return 2 * (pi * self.radius)
+        return 2 * pi * abs(self.radius)
 
 class Rectangle(Shape):
     """Represents an abstract class Shape."""
