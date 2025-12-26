@@ -12,10 +12,10 @@ class VerboseList(list):
 
     def extend(self, items):
         """Implements the extend method."""
+        super().extend(items)
         count = 0
         for i in items:
             count += 1
-            super().extend(items)
         print("Extended this list with [{}] items.".format(count))
 
     def remove(self, item):
