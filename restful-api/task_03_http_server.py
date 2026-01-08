@@ -27,9 +27,11 @@ class SimpleRequestHandler(http.server.BaseHTTPRequestHandler):
             self.wfile.write(b"OK")
 
         else:
-            # Handle all other undefined endpoints with a 404
-            self.send_error(404, "Endpoint not found")
-
+            # Manually send 404 to ensure the body content matches test expectations
+            self.send_response(404)
+            self.send_header('Content-type', 'text/plain')
+            self.end_headers()
+            self.wfile.write(b"Endpoint not found")
 
 # Define the port
 PORT = 8000
