@@ -5,38 +5,41 @@ import json
 
 class SimpleRequestHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
-        # Send response status code
-        if self.path == '/data':
-            # 1. Define the dataset
-            data = {"name": "John", "age": 30, "city": "New York"}
-            # 2. Set response status code
-            self.send_response(200)
-
-            # 3. Set the correct JSON header
-            self.send_header('Content-type', 'application/json')
-            self.end_headers()
-
-            # 4. Convert dictionary to JSON string and send
-            self.wfile.write(json.dumps(data).encode('utf-8'))
-        else:
-            # Default response for other paths
+        # Use an if/elif structure to ensure only ONE block executes per request
+        if self.path == '/':
             self.send_response(200)
             self.send_header('Content-type', 'text/plain')
             self.end_headers()
             self.wfile.write(b"Hello, this is a simple API!")
 
-        if self.path == '/status':
-            # Implement status endpoint
+        elif self.path == '/data':
+            data = {"name": "John", "age": 30, "city": "New York"}
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            # Ensure the JSON is dumped correctly to a string then encoded
+            self.wfile.write(json.dumps(data).encode('utf-8'))
+
+        elif self.path == '/status':
             self.send_response(200)
             self.send_header('Content-type', 'text/plain')
             self.end_headers()
             self.wfile.write(b"OK")
 
         else:
-            # Implement error handling for undefined endpoints
-            self.send_error(404, "Endpoint not found")
+            # Handle all other undefined endpoints with a 404
+            self.send_error(404, "Endpoint Not Found")
 
+
+# Define the port
 PORT = 8000
+
+# Using Allow Reuse Address helps prevent "Address already in use" errors during rapid restarts
+socketserver.TCPServer.allow_reuse_address = True
+
 with socketserver.TCPServer(("", PORT), SimpleRequestHandler) as httpd:
     print(f"Serving at http://localhost:{PORT}")
-    httpd.serve_forever()
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        print("\nServer stopped.")
