@@ -28,7 +28,7 @@ class SimpleRequestHandler(http.server.BaseHTTPRequestHandler):
 
         else:
             # Handle all other undefined endpoints with a 404
-            self.send_error(404, "Endpoint Not Found")
+            self.send_error(404, "Endpoint not found")
 
 
 # Define the port
