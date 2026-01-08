@@ -38,7 +38,7 @@ def post_data():
 
     # Match the exact error message and status code (400) for the checker
     if username in users:
-        return jsonify({"error": "User already exists"}), 400
+        return jsonify({"error": "Username already exists"}), 409
 
     users[username] = user_data
     return jsonify({"message": "User added", "user": user_data}), 201
