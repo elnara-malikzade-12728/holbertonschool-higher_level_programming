@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-Filters all states from the database hbtn_0e_0_usa and lists only the ones that start with "N".
+Filters all states from the database hbtn_0e_0_usa
+and lists only the ones that start with "N".
 
 """
 import MySQLdb
@@ -25,7 +26,8 @@ if __name__ == "__main__":
     cursor = db.cursor()
 
     # Execute the SQL query
-    cursor.execute("SELECT id, name FROM states WHERE name LIKE BINARY 'N%' ORDER BY id ASC")
+    cursor.execute("SELECT id, name
+    FROM states WHERE name LIKE BINARY 'N%' ORDER BY id ASC")
 
     # Fetch all the rows
     rows = cursor.fetchall()
