@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Take in the name of a state as an argument and 
+Take in the name of a state as an argument and
 lists all cities of that state from the database.
 
 """
@@ -37,9 +37,10 @@ if __name__ == "__main__":
     # Fetch all the rows
     rows = cursor.fetchall()
 
-    # Print results in the required format
-    for row in rows:
-        print(row)
+    cities_list = [row[0] for row in rows]
+
+    # Join the list into a single string separated by ", "
+    print(", ".join(cities_list))
 
     # Close the cursor and the connection
     cursor.close()
