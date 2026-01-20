@@ -11,7 +11,7 @@ if __name__ == "__main__":
     mysql_username = sys.argv[1]
     mysql_password = sys.argv[2]
     db_name = sys.argv[3]
-    
+
     # Connect to the MySQL server
     db = MySQLdb.connect(
         host="localhost",
@@ -26,8 +26,8 @@ if __name__ == "__main__":
 
     # Execute the SQL query
     cursor.execute("""
-        SELECT cities.id, cities.name, states.name 
-        FROM cities JOIN states ON cities.state_id = states.id 
+        SELECT cities.id, cities.name, states.name
+        FROM cities JOIN states ON cities.state_id = states.id
         ORDER BY cities.id ASC
     """)
 
