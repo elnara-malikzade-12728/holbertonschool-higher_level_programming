@@ -23,8 +23,11 @@ if __name__ == "__main__":
         State.name == state_name_to_search).order_by(State.id).all()
 
     # Display the results
-    for state in states:
-        print("{}".format(state.id))
+    if not states:
+        print("Not found")
+    else:
+        for state in states:
+            print("{}".format(state.id))
 
     # Close the session
     session.close()
