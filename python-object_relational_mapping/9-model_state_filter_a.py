@@ -20,11 +20,8 @@ if __name__ == "__main__":
     states = session.query(State).where(State.id != 4).order_by(State.id).all()
 
     # Display the results
-    if not states:
-        print("Nothing")
-    else:
-        for state in states:
-            print("{}: {}".format(state.id, state.name))
+    for state in states:
+        print("{}: {}".format(state.id, state.name))
 
     # Close the session
     session.close()
