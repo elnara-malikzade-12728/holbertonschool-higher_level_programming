@@ -17,11 +17,13 @@ if __name__ == "__main__":
     session = Session()
 
     # Query all State objects, sorted by id in ascending order
-    states = session.query(State).where(State.id != 4).order_by(State.id).all()
+    states = session.query(State).where(
+        State.name.like('%a%')).order_by(State.id).all()
 
     # Display the results
     for state in states:
-        print("{}: {}".format(state.id, state.name))
+        if 'a' in state.name:
+            print("{}: {}".format(state.id, state.name))
 
     # Close the session
     session.close()
