@@ -5,7 +5,7 @@ function secondBiggest (array) {
     return 0;
   } else {
     const sortedArray = array.sort((a, b) => a - b);
-    return sortedArray[sortedArray.length -2];
+    return sortedArray[sortedArray.length - 2];
   }
 }
 
