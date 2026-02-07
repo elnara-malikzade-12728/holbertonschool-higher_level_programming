@@ -1,17 +1,15 @@
 import os
 
 def generate_invitations(template, attendees):
-    # Check if template is a string
+    # Data validation
     if not isinstance(template, str):
         print("Error: Template must be a string.")
         return
-
-    # Check if attendees is a list of dictionaries
     if not isinstance(attendees, list) or not all(isinstance(item, dict) for item in attendees):
         print("Error: Attendees must be a list of dictionaries.")
         return
 
-    # Check for empty input
+    # Check for empty inputs
     if not template:
         print("Template is empty, no output files generated.")
         return
@@ -19,20 +17,28 @@ def generate_invitations(template, attendees):
         print("No attendees provided, no output files generated.")
         return
 
-    # Process each attendee
+    # Process attendees
     for i, attendee in enumerate(attendees, start=1):
-        # Handle missing keys by using .get() with "N/A" as default
-        processed_template = template.format(
-            name=attendee.get("name") if attendee.get("name") else "N/A",
-            event_title=attendee.get("event_title") if attendee.get("event_title") else "N/A",
-            event_date=attendee.get("event_date") if attendee.get("event_date") else "N/A",
-            event_location=attendee.get("event_location") if attendee.get("event_location") else "N/A"
-        )
+        # Create a copy to avoid modifying the original data
+        # Fill missing or None values with "N/A"
+        data = {k: (v if v is not None else "N/A") for k, v in attendee.items()}
+        
+        # Ensure standard keys exist even if not in the dictionary at all
+        for key in ["name", "event", "date", "location"]:
+            if key not in data or data[key] == "":
+                data[key] = "N/A"
 
-        # Write to file
-        template = f"output_{i}.txt"
         try:
-            with open(template, 'w') as f:
-                f.write(processed_template)
+            # Use format(**data) to map keys to {placeholders}
+            processed_content = template.format(**data)
+            
+            filename = f"output_{i}.txt"
+            
+            # Write file (if it exists, it will be overwritten)
+            with open(filename, 'w') as f:
+                f.write(processed_content)
+                
+        except KeyError as e:
+            print(f"Error: Template contains a placeholder {e} not provided in data.")
         except Exception as e:
-            print(f"Error writing to {template}: {e}")
+            print(f"Error: {e}")
