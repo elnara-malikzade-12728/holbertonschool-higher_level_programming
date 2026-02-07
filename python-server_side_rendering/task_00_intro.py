@@ -1,49 +1,44 @@
 import os
 
 def generate_invitations(template, attendees):
-    # 1. Validation for input types
+    # 1. Check Input Types
     if not isinstance(template, str):
-        print("Error: Template must be a string.")
+        print(f"Error: Invalid input type for template. Expected str, got {type(template).__name__}.")
         return
     if not isinstance(attendees, list) or not all(isinstance(item, dict) for item in attendees):
-        print("Error: Attendees must be a list of dictionaries.")
+        print(f"Error: Invalid input type for attendees. Expected list of dictionaries, got {type(attendees).__name__}.")
         return
 
-    # 2. Check for empty inputs
+    # 2. Handle Empty Inputs
     if not template:
         print("Template is empty, no output files generated.")
         return
     if not attendees:
-        print("No attendees provided, no output files generated.")
+        print("No data provided, no output files generated.")
         return
 
-    # 3. Process each attendee
+    # 3. Process Each Attendee
     for i, attendee in enumerate(attendees, start=1):
-        # Create a dictionary where None or empty strings become "N/A"
-        processed_data = {}
-        # We assume common keys but will handle others dynamically
-        keys = set(['name', 'event', 'date', 'location']) | set(attendee.keys())
+        processed_template = template
         
-        for key in keys:
-            val = attendee.get(key)
-            if val is None or val == "":
-                processed_data[key] = "N/A"
-            else:
-                processed_data[key] = val
-
-        try:
-            # Generate content
-            # .format_map handles the dictionary mapping safely
-            output_content = template.format_map(processed_data)
+        # List of placeholders expected in the template
+        placeholders = ["name", "event_title", "event_date", "event_location"]
+        
+        for key in placeholders:
+            # Get value from attendee dict, default to "N/A" if missing or None
+            value = attendee.get(key)
+            if value is None:
+                value = "N/A"
             
-            # Define filename and write
-            filename = f"output_{i}.txt"
-            with open(filename, 'w') as f:
-                f.write(output_content)
+            # Use replace to swap {key} with the actual value
+            processed_template = processed_template.replace(f"{{{key}}}", str(value))
+
+        # 4. Generate Output Files
+        filename = f"output_{i}.txt"
         
-        except KeyError as e:
-            # If a key is still missing in the template, handle it here
-            # But with our 'keys' logic above, this shouldn't happen
-            print(f"Error: Missing placeholder {e} in data for attendee {i}")
+        # Check if file exists (as per hint) though 'w' overwrites anyway
+        try:
+            with open(filename, 'w') as f:
+                f.write(processed_template)
         except Exception as e:
-            print(f"Error: {e}")
+            print(f"Error writing to {filename}: {e}")
