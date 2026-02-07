@@ -1,7 +1,7 @@
 import os
 
 def generate_invitations(template, attendees):
-    # Validation for input types
+    # 1. Validation for input types
     if not isinstance(template, str):
         print("Error: Template must be a string.")
         return
@@ -9,41 +9,41 @@ def generate_invitations(template, attendees):
         print("Error: Attendees must be a list of dictionaries.")
         return
 
-    # Check for empty inputs
-    if not template.strip():
+    # 2. Check for empty inputs
+    if not template:
         print("Template is empty, no output files generated.")
         return
     if not attendees:
         print("No attendees provided, no output files generated.")
         return
 
-    # Process each attendee
+    # 3. Process each attendee
     for i, attendee in enumerate(attendees, start=1):
-        # We use a copy of the attendee dict to prepare the format data
-        # We need to handle: 1. Missing keys, 2. None values
+        # Create a dictionary where None or empty strings become "N/A"
+        processed_data = {}
+        # We assume common keys but will handle others dynamically
+        keys = set(['name', 'event', 'date', 'location']) | set(attendee.keys())
         
-        # Define the keys we expect to see
-        expected_keys = ["name", "event", "date", "location"]
-        format_data = {}
-
-        for key in expected_keys:
+        for key in keys:
             val = attendee.get(key)
-            # If value is None or empty string, use "N/A"
             if val is None or val == "":
-                format_data[key] = "N/A"
+                processed_data[key] = "N/A"
             else:
-                format_data[key] = val
+                processed_data[key] = val
 
         try:
-            # Generate content using the prepared data
-            output_content = template.format(**format_data)
+            # Generate content
+            # .format_map handles the dictionary mapping safely
+            output_content = template.format_map(processed_data)
             
-            # Define filename
+            # Define filename and write
             filename = f"output_{i}.txt"
-            
-            # Write to file
             with open(filename, 'w') as f:
                 f.write(output_content)
         
+        except KeyError as e:
+            # If a key is still missing in the template, handle it here
+            # But with our 'keys' logic above, this shouldn't happen
+            print(f"Error: Missing placeholder {e} in data for attendee {i}")
         except Exception as e:
-            print(f"Error processing attendee {i}: {e}")
+            print(f"Error: {e}")
