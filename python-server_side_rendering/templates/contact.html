@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Contact Us</title>
-</head>
-<body>
-    {% include "header.html"%}
+{%extends "base.html"%}
+{%block head%}{%endblock%}
+{%block body%}
+    {% include 'header.html' %}
         <h1>Contact Us</h1>
         <p>This page shares the contact information</p>
     {%include "footer.html"%}
-</body>
-</html>
+{%endblock%}
