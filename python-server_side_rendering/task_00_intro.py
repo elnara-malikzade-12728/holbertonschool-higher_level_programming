@@ -1,7 +1,7 @@
 import os
 
 def generate_invitations(template, attendees):
-    # Data validation
+    # Validation for input types
     if not isinstance(template, str):
         print("Error: Template must be a string.")
         return
@@ -10,35 +10,40 @@ def generate_invitations(template, attendees):
         return
 
     # Check for empty inputs
-    if not template:
+    if not template.strip():
         print("Template is empty, no output files generated.")
         return
     if not attendees:
         print("No attendees provided, no output files generated.")
         return
 
-    # Process attendees
+    # Process each attendee
     for i, attendee in enumerate(attendees, start=1):
-        # Create a copy to avoid modifying the original data
-        # Fill missing or None values with "N/A"
-        data = {k: (v if v is not None else "N/A") for k, v in attendee.items()}
+        # We use a copy of the attendee dict to prepare the format data
+        # We need to handle: 1. Missing keys, 2. None values
         
-        # Ensure standard keys exist even if not in the dictionary at all
-        for key in ["name", "event", "date", "location"]:
-            if key not in data or data[key] == "":
-                data[key] = "N/A"
+        # Define the keys we expect to see
+        expected_keys = ["name", "event", "date", "location"]
+        format_data = {}
+
+        for key in expected_keys:
+            val = attendee.get(key)
+            # If value is None or empty string, use "N/A"
+            if val is None or val == "":
+                format_data[key] = "N/A"
+            else:
+                format_data[key] = val
 
         try:
-            # Use format(**data) to map keys to {placeholders}
-            processed_content = template.format(**data)
+            # Generate content using the prepared data
+            output_content = template.format(**format_data)
             
+            # Define filename
             filename = f"output_{i}.txt"
             
-            # Write file (if it exists, it will be overwritten)
+            # Write to file
             with open(filename, 'w') as f:
-                f.write(processed_content)
-                
-        except KeyError as e:
-            print(f"Error: Template contains a placeholder {e} not provided in data.")
+                f.write(output_content)
+        
         except Exception as e:
-            print(f"Error: {e}")
+            print(f"Error processing attendee {i}: {e}")
