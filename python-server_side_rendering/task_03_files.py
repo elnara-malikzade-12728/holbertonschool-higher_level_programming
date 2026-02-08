@@ -50,6 +50,6 @@ def products(id=None):
         if not product_list:
             return 'Product not found', 404
 
-    return render_template('products_display.html', products=product_list)
+    return render_template('product_display.html', products=product_list)
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
