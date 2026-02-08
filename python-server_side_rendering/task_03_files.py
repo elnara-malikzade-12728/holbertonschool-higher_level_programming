@@ -1,8 +1,8 @@
-from flask import Flask, render_template, json, request
-from flask_sqlalchemy import SQLAlchemy
+import json
 import csv
 import os
-import json
+from flask import Flask, render_template, json, request
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 # Database configuration
