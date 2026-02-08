@@ -1,0 +1,18 @@
+{%extends "base.html"%}
+{%block head%}
+    <title>Items List</title>
+{%endblock%}
+
+{%block body%}
+    <div>
+        {%if items | length < 1%}
+            <p>No items found</p>
+        {%else%}
+            <ul>
+                {%for item in items%}
+                    <li>{{item}}</li>
+                {%endfor%}
+            </ul>
+        {%endif%}
+    </div>
+{%endblock%}
